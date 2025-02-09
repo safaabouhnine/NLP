@@ -7,15 +7,16 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import psycopg2
 import json
 from flask_cors import CORS
+import requests  # Added to make API calls
+
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5174"}})
 # Configuration des chemins et de la base de données PostgreSQL
 DB_HOST = "localhost"
 DB_NAME = "Calmify"
 DB_USER = "postgres"
 DB_PASSWORD = "safaa123"
-# hello ana kanjareb had version
 
 # Ajout du répertoire des services au PATH
 service_dir = os.path.join(os.path.dirname(__file__), "services")
@@ -36,11 +37,75 @@ except ImportError as e:
 
 
 # Configuration du modèle Flan-T5
-MODEL_NAME = "google/flan-t5-base"
-print("Chargement du modèle Flan-T5...")
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
-print("Modèle Flan-T5 et tokenizer chargés avec succès.")
+API_KEY = "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"  # Replace with your actual API key
+MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.3"
+API_URL = f"https://api-inference.huggingface.co/models/{MODEL_NAME}"
+print("Using Hugging Face API for the chatbot model.")
+
+
+# Function to Get Response from Hugging Face API
+def get_chatbot_response(user_input):
+    prompt = f"""
+You are a caring and attentive assistant.
+
+The user said: "{user_input}"
+
+Guidelines:
+- Do not repeat the user's question word for word.
+- Provide a clear and concise response.
+- Structure your answer as a list with bullet points or numbers for better readability.
+- Ensure that the advice is relevant, kind, and constructive.
+
+Expected format:
+
+- Tip 1: ...
+- Tip 2: ...
+- Tip 3: ...
+
+Your response:
+"""
+    headers = {"Authorization": f"Bearer {API_KEY}",
+               "Content-Type": "application/json"}
+    data = {
+        "inputs": prompt,
+        "parameters": {
+            "max_new_tokens": 200,
+            "temperature": 0.7,
+            "top_p": 0.9,
+            "return_full_text": False,  # si disponible pour votre modèle
+            "repetition_penalty": 1.2,
+            "stop_sequences": ["\n\n"]  # Forcer le modèle à bien structurer les paragraphes
+        }
+    }
+    try:
+        response = requests.post(API_URL, headers=headers, json=data)
+        print("Hugging Face API Response:", response.json())  # Log the API response
+
+        if response.status_code == 200:
+            response_json = response.json()
+            if isinstance(response_json, list) and len(response_json) > 0:
+                raw_text = response_json[0].get("generated_text", "No response generated.")
+                # Post-traitement pour enlever la question si répétée au début
+                cleaned_text = remove_repetition(raw_text, user_input)
+                formatted_text = format_for_html(cleaned_text)  # Conversion pour affichage HTML
+                return formatted_text
+            return "Unable to generate a valid response."
+        else:
+            print(f"API Error {response.status_code}: {response.json()}")
+            return "Error in generating response. Please try again later."
+    except Exception as e:
+        print(f"Error in API call: {e}")
+        return "An error occurred while processing your request."
+def format_for_html(text):
+    return text.replace("\n", "<br>")
+
+def remove_repetition(generated_text, user_input):
+    # Supprime la répétition exacte du prompt s’il est au début
+    trimmed_user_input = user_input.strip()
+    trimmed_generated = generated_text.strip()
+    if trimmed_generated.startswith(trimmed_user_input):
+        return trimmed_generated[len(trimmed_user_input):].strip()
+    return trimmed_generated
 
 # Fonction pour créer une nouvelle conversation
 def save_new_conversation(start_time, status):
@@ -98,11 +163,11 @@ def update_conversation_messages(conversation_id, messages):
             connection.close()
 
 # Exemple de données
-conversations = [
-    {"id": 1, "title": "Conversation 1"},
-    {"id": 2, "title": "Conversation 2"},
-    {"id": 3, "title": "Conversation 3"},
-]
+# conversations = [
+#     {"id": 1, "title": "Conversation 1"},
+#     {"id": 2, "title": "Conversation 2"},
+#     {"id": 3, "title": "Conversation 3"},
+# ]
 # Endpoint pour récupérer toutes les conversations
 @app.route('/api/conversations', methods=['GET'])
 def get_conversations():
@@ -142,7 +207,7 @@ def get_conversations():
 def chat():
     try:
         print("Endpoint /chat appelé")
-        
+
         # Récupérer ou créer une conversation active
         active_conversation_id = request.cookies.get("active_conversation_id")
         start_time = datetime.now()
@@ -159,21 +224,8 @@ def chat():
         stress_level = map_emotions_to_stress(emotion_scores)
 
         print("Génération de la réponse du chatbot...")
-        input_ids = tokenizer(
-            user_input,
-            return_tensors="pt",
-            padding=True,
-            truncation=True,
-            max_length=50
-        )
-        outputs = model.generate(
-            input_ids["input_ids"],
-            max_length=50,
-            temperature=0.7,
-            top_p=0.9,
-            do_sample=True
-        )
-        chatbot_response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+        chatbot_response = get_chatbot_response(user_input)
 
         if not active_conversation_id:
             active_conversation_id = save_new_conversation(start_time, "ongoing")
@@ -186,7 +238,7 @@ def chat():
 
         response = make_response(jsonify({
             "user_input": user_input,
-            "chatbot_response": chatbot_response,
+            "chatbot_response": chatbot_response.replace("\n", "<br>"),
             "emotions": emotion_scores,
             "stress_level": stress_level,
             "conversation_id": active_conversation_id
