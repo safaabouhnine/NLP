@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # Backend Spring Boot Service
+  backend:
+    build:
+      context: ./Backend # Le répertoire contenant le Dockerfile pour Spring Boot
+      dockerfile: Dockerfile
+    container_name: Backend
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/projet_uml
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=ibtissamat2002
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_SQL_INIT_PLATFORM=postgresql
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # Frontend React Service
+  frontend:
+    build:
+      context: ./frontend1 # Le répertoire contenant le Dockerfile pour React
+      dockerfile: Dockerfile
+    container_name: frontend1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  # NLP Python Service
+  nlp:
+    build:
+      context: ./NLP # Le répertoire contenant le Dockerfile pour Python NLP
+      dockerfile: Dockerfile
+    container_name: nlp2
+    ports:
+      - "5000:5000" # Port pour l'API NLP si elle est exposée
+    networks:
+      - app-network
+
+  # PostgreSQL Database Service
+  db:
+    image: postgres:latest
+    container_name: db2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ibtissamat2002
+      POSTGRES_DB: projet_uml
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+    driver: local
