@@ -1,0 +1,160 @@
+/* Container Principal */
+.chat-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f6f9fc; /* Couleur de fond relaxante */
+}
+
+/* Styles pour la fenêtre de chat */
+.chat-window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+    background-color: #f9f9f9; /* Couleur blanche pour le contenu principal */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Barre latérale */
+.sidebar {
+    width: 300px;
+    background-color: #d4f1f4; /* Couleur douce et relaxante */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Bouton pour cacher/montrer la barre latérale */
+.sidebar-toggle {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    background-color: #76c7c0; /* Couleur cohérente avec Calmify */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 20px;
+    z-index: 1000;
+}
+
+.sidebar-toggle:hover {
+    background-color: #68b4ac;
+}
+
+/* Bouton "Nouvelle conversation" */
+.new-conversation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    margin: 10px;
+    font-size: 16px;
+    background-color: #76c7c0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.new-conversation:hover {
+    background-color: #68b4ac;
+}
+
+/* Historique des conversations */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li:hover {
+    background-color: #b2e0e5;
+    border-radius: 5px;
+}
+
+.sidebar ul li.active {
+    background-color: #76c7c0;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Messages */
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message {
+    padding: 10px ;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    max-width: 70%;
+}
+
+.message.user {
+    background-color:  #d1e7dd;
+    align-self: flex-end;
+    text-align: right;
+    color: #333;
+}
+
+.message.bot {
+    background-color: #f8d7da;
+    align-self: flex-start;
+    text-align: left;
+    color: #333;
+}
+
+/* Champ d'entrée */
+.input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    gap: 10px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.input-area button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #76c7c0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-area button:hover {
+    background-color: #68b4ac;
+}

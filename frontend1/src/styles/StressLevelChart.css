@@ -1,0 +1,26 @@
+/* StressLevelChart.css */
+/*.stress-level-chart {*/
+/*    background-color: white;*/
+/*    padding: 20px;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.stress-level-chart h3 {*/
+/*    color: #2c3e50;*/
+/*    margin-bottom: 20px;*/
+/*    font-size: 18px;*/
+/*}*/
+
+.chart-card {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-card h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 18px;
+}

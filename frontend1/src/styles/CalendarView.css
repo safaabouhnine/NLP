@@ -1,0 +1,354 @@
+/*!* Style des événements *!*/
+/*.fc-event {*/
+/*    background-color: var(--primary-color) !important;*/
+/*    color: var(--text-color) !important; !* Texte plus visible *!*/
+/*    border: none !important;*/
+/*    border-radius: 5px !important;*/
+/*    font-size: 14px; !* Augmenter la taille de la police *!*/
+/*    font-weight: bold; !* Rendre le texte plus gras *!*/
+/*    padding: 5px;*/
+/*    overflow: hidden;*/
+/*    white-space: nowrap;*/
+/*    text-overflow: ellipsis; !* Gestion du texte long *!*/
+/*}*/
+
+/*.fc-event:hover {*/
+/*    background-color: var(--hover-color) !important;*/
+/*    transform: scale(1.05);*/
+/*    transition: transform 0.2s;*/
+/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); !* Ajouter une ombre au hover *!*/
+/*}*/
+
+/*!* Texte du titre dans l'événement *!*/
+/*.fc-event-title {*/
+/*    color: var(--text-color) !important;*/
+/*    font-size: 14px;*/
+/*    text-align: center;*/
+/*}*/
+/*!* Conteneur principal *!*/
+/*.calendar-container {*/
+/*    max-width: 90%;*/
+/*    margin: 20px auto;*/
+/*    padding: 20px;*/
+/*    background-color: var(--secondary-color);*/
+/*    border-radius: 15px;*/
+/*    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); !* Ombre plus visible *!*/
+/*    border: 1px solid var(--border-color);*/
+/*}*/
+
+/*!* Titre du calendrier *!*/
+/*.calendar-title {*/
+/*    text-align: center;*/
+/*    font-size: 36px; !* Augmenter la taille *!*/
+/*    color: var(--text-color);*/
+/*    margin-bottom: 20px;*/
+/*    text-transform: uppercase; !* Texte en majuscule *!*/
+/*    letter-spacing: 2px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*!* Fond de l'en-tête *!*/
+/*.fc-toolbar.fc-header-toolbar {*/
+/*    background-color: var(--accent-color);*/
+/*    border-radius: 8px;*/
+/*    padding: 10px;*/
+/*}*/
+
+/*!* Boutons dans l'en-tête *!*/
+/*.fc-button {*/
+/*    background-color: var(--primary-color);*/
+/*    color: var(--secondary-color);*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    padding: 6px 12px;*/
+/*    font-size: 14px;*/
+/*}*/
+
+/*.fc-button:hover {*/
+/*    background-color: var(--hover-color);*/
+/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*!* Style des colonnes *!*/
+/*.fc-col-header-cell {*/
+/*    background-color: var(--accent-color);*/
+/*    color: var(--text-color);*/
+/*    font-weight: bold;*/
+/*    border: 1px solid var(--border-color);*/
+/*}*/
+/*!* Animation d'apparition *!*/
+/*@keyframes fadeIn {*/
+/*    from {*/
+/*        opacity: 0;*/
+/*        transform: translateY(-10px);*/
+/*    }*/
+/*    to {*/
+/*        opacity: 1;*/
+/*        transform: translateY(0);*/
+/*    }*/
+/*}*/
+
+/*!* Appliquer l'animation au conteneur *!*/
+/*.calendar-container {*/
+/*    animation: fadeIn 0.5s ease-in-out;*/
+/*}*/
+/*.fc-toolbar-title {*/
+/*    font-size: 1.5rem;*/
+/*    color: var(--text-color);*/
+/*}*/
+
+/*.fc-button {*/
+/*    background-color: var(--primary-color);*/
+/*    border: none;*/
+/*    color: white;*/
+/*    padding: 0.5rem 1rem;*/
+/*    border-radius: 5px;*/
+/*    margin: 0 0.2rem;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.fc-button:hover {*/
+/*    background-color: var(--secondary-color);*/
+/*}*/
+
+/*.fc-button-active {*/
+/*    background-color: var(--highlight-color);*/
+/*}*/
+
+
+/* Styles for the overall calendar wrapper, ensuring it takes up the full width and height of the view */
+.calendar-wrapper {
+    width: 100%;
+    padding: 1rem;
+    background-color: white;
+}
+/* Container for the calendar, providing padding and background styling */
+.calendar-container {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    padding: 10px;
+}
+/* Title style for the calendar */
+.calendar-title {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+}
+/* Subtitle style for additional information below the title */
+.calendar-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+/* Content area style where the FullCalendar component is displayed */
+.calendar-content {
+    height: calc(100vh - 12rem);
+    width: 100%;
+}
+
+/* FullCalendar main container style */
+.fc {
+    height: 100% !important; /* Adjust to desired height */
+    font-family: 'Playfair Display', serif !important;
+}
+
+/* Toolbar styles (navigation buttons and title) */
+.fc-header-toolbar {
+    display: flex;
+    justify-content: space-between; /* Keeps buttons on the same line */
+    align-items: center;            /* Centers the buttons vertically */
+    padding: 10px !important;
+    margin-bottom: 0 !important;
+    background-color: #e8f4f6 !important;
+    border-radius: 0.5rem;
+    height: 40px;
+}
+/* Title in the toolbar */
+.fc-toolbar-title {
+    font-size: 1.5rem !important;
+    color: #333 !important;
+    font-weight: 500 !important;
+}
+
+
+
+
+.fc-daygrid-day-frame {
+    overflow: hidden !important; /* Prevent overflow  */
+    padding: -20px !important;           /* Reduce internal padding */
+    max-width: 130px !important;       /* Set a maximum width for each cell */
+    width: 100% !important;            /* Ensure cells remain responsive */
+    box-sizing: border-box !important; /* Ensure padding is included in width calculation */
+
+
+}
+/*.fc-daygrid-event {*/
+/*    white-space: normal !important;  !* Allow text to wrap *!*/
+/*    overflow: visible !important;    !* Show overflowing content *!*/
+/*    height: auto !important;         !* Let the height adjust automatically *!*/
+/*    line-height: 1.2 !important;     !* Improve readability with line spacing *!*/
+/*    padding: 4px !important;         !* Add some padding for better appearance *!*/
+/*    font-size: 0.9rem !important;    !* Adjust font size *!*/
+/*    color: #162124;*/
+/*    font-weight: bolder;*/
+/*}*/
+/*.fc-daygrid-block-event {*/
+/*    white-space: normal !important;  !* Allow text to wrap *!*/
+/*    overflow: visible !important;    !* Prevent text from being hidden *!*/
+/*    height: auto !important;         !* Adjust the height automatically *!*/
+/*    padding: 4px 8px !important;     !* Add padding for better readability *!*/
+/*    font-size: 0.9rem !important;    !* Adjust font size *!*/
+/*    line-height: 1.2 !important;     !* Improve line spacing *!*/
+/*    color: red;*/
+/*}*/
+
+/* Standardized style for all events */
+.fc-event,
+.fc-daygrid-event,
+.fc-daygrid-block-event {
+    white-space: normal !important;  /* Allow the title to wrap */
+    overflow: visible !important;    /* Ensure all content is displayed */
+    height: auto !important;         /* Let the event height adjust automatically */
+    padding: 4px 8px !important;     /* Add padding for better readability */
+    font-size: 0.775rem !important;    /* Adjust font size */
+    line-height: 1.2 !important;     /* Improve readability with proper line spacing */
+    border-radius: 0.25rem !important; /* Rounded corners for a consistent look */
+    border: none !important;         /* Remove border for a cleaner look */
+    color: #162124;                  /* Use the same text color */
+    background-color: #93C7D3 !important; /* Ensure consistent background color */
+    font-weight: bold !important;    /* Ensure text is bold */
+    text-overflow: ellipsis;         /* Ajoute des points de suspension si le texte dépasse */
+
+}
+/* Ajuste les événements sur plusieurs lignes */
+.fc-daygrid-event-dot {
+    white-space: normal !important; /* Permet d'afficher correctement les événements sous forme de points */
+    line-height: 1.2 !important;
+}
+
+
+
+
+
+
+
+
+
+/* Primary buttons in the toolbar (previous, next, today) */
+.fc-button-primary {
+    background-color:  #93C7D3 !important;
+    border-color: #93C7D3 !important;
+    color: #666666 !important;
+    font-weight: bold !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 0.5rem !important;
+    height: 36px;
+}
+/* Hover effect for the primary buttons */
+.fc-button-primary:hover {
+    background-color: #7ab8c4 !important;
+    border-color: #7ab8c4 !important;
+}
+/* Disabled state for primary buttons */
+.fc-button-primary:disabled {
+    background-color:  #c9e3e9 !important;
+    border-color: #c9e3e9 !important;
+    height: 36px;
+}
+/* Style for the "Today" button */
+.fc-today-button {
+    text-transform: capitalize !important;
+}
+
+/* Header (day names) in the calendar */
+.fc-day-header {
+    font-weight: 500 !important;
+    color: #333 !important;
+    padding: 0.75rem 0 !important;
+    text-transform: capitalize !important;
+}
+/* Style for each day cell */
+.fc-day {
+    border: 1px solid #eee !important;
+    background-color: rgba(255, 255, 255, 0.97);
+
+}
+
+/* Style for the current day */
+.fc-day-today {
+    background-color: #f8f9fa !important;
+}
+/* Style for the events displayed in the calendar */
+/*.fc-event {*/
+/*    background-color: #93C7D3 !important;*/
+/*    margin: 2px 0 !important; !* Reduce the margin between events *!*/
+/*    height: auto !important;  !* Let events adjust their height automatically *!*/
+/*    white-space: normal !important; !* Allow text to wrap instead of truncating *!*/
+/*    line-height: 1.2 !important;    !* Improve line spacing *!*/
+/*    overflow: visible !important;   !* Ensure all content is displayed *!*/
+/*    border: none !important;*/
+/*    padding: 4px 8px !important;    !* Add padding for better display *!*/
+/*    font-size: 0.875rem !important;*/
+/*    border-radius: 0.25rem !important;*/
+/*}*/
+
+/* Style for the overall calendar view */
+.fc-view {
+    border: 1px solid #eee !important;
+    border-radius: 0.5rem !important;
+    overflow: hidden !important;
+}
+
+/* Style for the header (day labels) */
+.fc th {
+    padding: 10px 0 !important;
+    font-weight: 500 !important;
+}
+/* Style for each column header cell */
+.fc-col-header-cell {
+    background-color: #f8f9fa !important;
+}
+/* Style for the scroll grid inside the calendar */
+.fc-scrollgrid {
+    border: none !important;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .calendar-wrapper {
+        padding: 1rem;
+    }
+
+    .calendar-container {
+        padding: 1rem;
+    }
+
+    .calendar-title {
+        font-size: 2rem;
+    }
+
+    .calendar-subtitle {
+        font-size: 1rem;
+    }
+
+    .fc-header-toolbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .fc-toolbar-chunk {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+

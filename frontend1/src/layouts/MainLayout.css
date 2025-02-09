@@ -1,0 +1,74 @@
+/*.app-mainlayout {*/
+/*    display: flex;*/
+/*    min-height: 100vh;*/
+/*    padding: 1rem;*/
+/*    background-color: #93C7D3;*/
+/*}*/
+
+/*.content-mainlayout {*/
+/*    flex: 1;*/
+/*    display: flex;*/
+/*    background-color: white;*/
+/*    border-radius: 1rem;*/
+/*    overflow: hidden;*/
+/*    position: relative;*/
+/*    margin-left: 240px; !* Remove left margin *!*/
+/*    border-left: 1px solid #ccc; !* Add a separator line *!*/
+/*}*/
+
+/*main {*/
+/*    flex: 1;*/
+/*    padding: 10px;*/
+/*    background-color: white;*/
+/*    width: 100%;*/
+/*}*/
+
+/*!* Update sidebar positioning *!*/
+/*.sidebar {*/
+/*    position: fixed;*/
+/*    left: 1rem;*/
+/*    top: 1rem;*/
+/*    height: calc(100vh - 2rem);*/
+/*    background: white;*/
+/*    border-radius: 1rem 0 0 1rem;*/
+/*    z-index: 10;*/
+/*}*/
+
+/*!* Responsive adjustments *!*/
+/*@media (max-width: 768px) {*/
+/*    .app {*/
+/*        padding: 0;*/
+/*    }*/
+
+/*    .content {*/
+/*        margin-left: 0;*/
+/*        border-radius: 0;*/
+/*    }*/
+
+/*    .sidebar {*/
+/*        left: 0;*/
+/*        top: 0;*/
+/*        height: 100vh;*/
+/*        border-radius: 0;*/
+/*    }*/
+/*}*/
+.main-layout {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+

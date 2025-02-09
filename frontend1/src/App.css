@@ -1,0 +1,52 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+/* Reset des styles par défaut */
+/** {*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*  font-family: 'Playfair Display', serif;*/
+
+/*}*/
+
+/*.App {*/
+/*  width: 100%;*/
+/*  min-height: 100vh;*/
+/*}*/
+
+
+/* App.css */
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  background-color: #f8f9fa;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #93c7d3; /* Couleur de fond vert clair */
+  padding: 10px; /* Ajouter du padding */
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
+
+/* Header styles (if needed) */
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Footer styles (if needed) */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Playfair Display', serif !important;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+:root {
+  --primary-color: #97d5e0; /* Bleu clair */
+  --secondary-color: #ffffff; /* Blanc */
+  --text-color: #333333; /* Noir/gris foncé pour le texte */
+  --accent-color: #e0f4f7; /* Fond bleu pâle */
+  --border-color: #cfe8ea; /* Bordures légères */
+  --hover-color: #66b7c5; /* Bleu accentué pour hover */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Ombres */
+}
+
+/* Appliquez des styles globaux */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--accent-color);
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+html, body {
+  height: 100%; /* Assurez que la hauteur est définie */
+  margin: 0;
+  overflow: auto; /* Activer le défilement global */
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+}

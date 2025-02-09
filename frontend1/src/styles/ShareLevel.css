@@ -1,0 +1,34 @@
+.metrics-card {
+    background: white;
+    border-radius: 1.25rem;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgb(60, 179, 166);
+    text-align: center;
+}
+
+.metrics-card h3 {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+}
+
+.metric-value {
+    font-size: 35px;
+    color: #93C7D3;
+    font-weight: bolder;
+    line-height: 0.5;
+    margin: 0.75rem 0;
+    font-family: 'Playfair Display', serif;
+}
+
+.metric-description {
+    font-size: 10px;
+    color: #666;
+    margin-top: 0.75rem;
+    line-height: 1;
+    text-align: center;
+}
+

@@ -1,0 +1,40 @@
+.tips {
+    background: white;
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 50%;
+}
+
+.tips h3 {
+    color: #666;
+    font-size: 20px;
+    margin-bottom: 1.5rem;
+    font-weight:bold;
+    font-family: 'Playfair Display', serif;
+}
+
+.tips ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tips ul li {
+    color: #666;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.tips ul li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.tips ul li:first-child {
+    padding-top: 0;
+}
+
