@@ -1,0 +1,41 @@
+# Ignorer les fichiers Python compilés
+__pycache__/
+*.py[cod]
+
+# Ignorer les environnements virtuels
+venv/
+llama_env/
+*.env
+
+# Ignorer les fichiers de configuration de l'éditeur
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignorer les fichiers de dépendances Python
+*.egg-info/
+*.egg
+*.pyo
+*.whl
+
+# Ignorer les journaux
+*.log
+
+# Ignorer les fichiers temporaires et système
+*.tmp
+*.DS_Store
+Thumbs.db
+
+# Ignorer les fichiers spécifiques au projet
+GPTQ-for-LLama/
+chainlit_app/
+data/
+services/
+tests/
+chainlit.yaml
+conversations.json
+
+# Inclure manuellement les fichiers importants
+!app.py
+!config.py
