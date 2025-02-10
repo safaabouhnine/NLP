@@ -81,20 +81,6 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 1024px) {
-    .metrics-row {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .chart-section {
-        grid-column: span 12;
-    }
-
-    .tips-section {
-        grid-column: span 12;
-    }
-}
-
 @media (max-width: 640px) {
     .metrics-row {
         grid-template-columns: 1fr;

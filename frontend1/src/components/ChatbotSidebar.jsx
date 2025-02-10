@@ -21,10 +21,10 @@ const ChatbotSidebar = ({
     };
 
     return (
-        <div className={`sidebar-container ${isSidebarOpen ? "open" : "closed"}`}>
+        <div className={`sidebarChat-container ${isSidebarOpen ? "open" : "closed"}`}>
             {/* Bouton toujours visible pour basculer la barre latérale */}
             <button
-                className={`sidebar-toggle-button`}
+                className={`sidebarChat-toggle-button`}
                 onClick={toggleSidebar}
                 style={{
                     position: "absolute",
@@ -41,7 +41,7 @@ const ChatbotSidebar = ({
             </button>
 
             {/* Contenu de la barre latérale */}
-            <div className={`sidebar ${isSidebarOpen ? "open" : "closed"}`}>
+            <div className={`sidebarChat ${isSidebarOpen ? "open" : "closed"}`}>
                 {isSidebarOpen && (
                     <div>
                         <div className="sidebar-header">
