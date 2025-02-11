@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 import "../styles/Chatbot.css";
 import axiosInstance from "../AxiosInstance";
@@ -6,6 +6,8 @@ import axiosInstance from "../AxiosInstance";
 const Chatbot = () => {
     const { setShowMainSidebar, conversations, setConversations, activeChat, setActiveChat, messages, setMessages } = useOutletContext();
     const [input, setInput] = useState("");
+    // ✅ Reference for scrolling to the latest message
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         setShowMainSidebar(false);
@@ -17,6 +19,11 @@ const Chatbot = () => {
         const chat = conversations.find((c) => c.id === activeChat);
         setMessages(chat ? chat.messages : []);
     }, [activeChat, conversations]);
+
+    // ✅ Auto-scroll to the last message when messages change
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
     // 🔹 Envoi de message
     const handleSendMessage = async () => {
@@ -57,6 +64,8 @@ const Chatbot = () => {
                             {message.content}
                         </div>
                     ))}
+                    {/* ✅ Invisible div to ensure scrolling to latest message */}
+                    <div ref={messagesEndRef} />
                 </div>
 
                 <div className="chat-input-container">
