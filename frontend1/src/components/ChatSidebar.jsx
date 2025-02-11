@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Plus, Search, Menu } from "lucide-react";
+import { ArrowLeft, Plus, Search, Menu, Trash, MessageSquareText } from "lucide-react";
 import "../styles/ChatSidebar.css";
 
 const ChatSidebar = ({
@@ -76,6 +76,7 @@ const ChatSidebar = ({
                                     className={activeChat === chat.id ? "active" : ""}
                                     onClick={() => handleSelectChat(chat.id)}
                                 >
+                                    <MessageSquareText size={20}/>
                                     <span>{chat.title}</span>
                                 </li>
                             ))}
@@ -83,8 +84,10 @@ const ChatSidebar = ({
                     </div>
 
                     <button className="clear-chats" onClick={handleClearChats}>
-                        Clear All Chats
+                        <Trash size={20}/>
+                        <span>Clear All Chats</span>
                     </button>
+
                 </div>
             </div>
         </>
