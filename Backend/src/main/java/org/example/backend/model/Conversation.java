@@ -17,8 +17,12 @@ public class Conversation {
     private LocalDateTime endTime;
     private String status;
 //ajouter message
+//@Lob
+//private String messages;
 @Lob
+@Column(columnDefinition = "TEXT") // Ou utilisez JSONB si PostgreSQL le supporte
 private String messages;
+
     @OneToMany(mappedBy = "conversation")
     private List<NLP_analysis> nlpAnalyses;
 

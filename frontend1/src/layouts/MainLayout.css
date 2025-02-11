@@ -52,6 +52,8 @@
 /*        border-radius: 0;*/
 /*    }*/
 /*}*/
+
+/*second version
 .main-layout {
     display: flex;
     flex-direction: row;
@@ -70,5 +72,101 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
+}*/
+
+
+/*Version2
+.app {
+    display: flex;
+    min-height: 100vh;
+    padding: 1.5rem;
+    background-color: #93C7D3;
 }
+
+.content {
+    flex: 1;
+    display: flex;
+    background-color: white;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    margin-left: 250px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+main {
+    flex: 1;
+    padding: 2rem 2.5rem;
+    background-color: white;
+    width: 100%;
+}
+
+/* Update sidebar positioning
+
+.sidebar {
+    position: fixed;
+    left: 1.5rem;
+    top: 1.5rem;
+    height: calc(100vh - 3rem);
+    background: white;
+    border-radius: 1.5rem 0 0 1.5rem;
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive adjustments
+@media (max-width: 768px) {
+    .app {
+        padding: 0;
+    }
+
+    .content {
+        margin-left: 0;
+        border-radius: 0;
+    }
+
+    .sidebar {
+        left: 0;
+        top: 0;
+        height: 100vh;
+        border-radius: 0;
+    }
+}*/
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    padding: 1.5rem;
+    background-color: #93c7d3;
+}
+
+.app-content {
+    flex: 1;
+    display: flex;
+    background-color: white;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem 2.5rem;
+    background-color: white;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .app-layout {
+        padding: 0;
+    }
+
+    .app-content {
+        border-radius: 0;
+    }
+}
+
+
+
+
 

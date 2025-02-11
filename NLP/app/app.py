@@ -11,12 +11,12 @@ import requests  # Added to make API calls
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5174"}})
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 # Configuration des chemins et de la base de données PostgreSQL
 DB_HOST = "localhost"
 DB_NAME = "Calmify"
 DB_USER = "postgres"
-DB_PASSWORD = "safaa123"
+DB_PASSWORD = "AZERTY"
 
 # Ajout du répertoire des services au PATH
 service_dir = os.path.join(os.path.dirname(__file__), "services")
@@ -248,6 +248,34 @@ def chat():
     except Exception as e:
         print(f"Erreur dans l'endpoint /chat : {e}")
         return jsonify({"error": str(e)}), 500
+
+@app.route('/api/analyze', methods=['POST'])
+def analyze_text():
+    try:
+        data = request.get_json()
+        if not data or "text" not in data:
+            return jsonify({"error": "Invalid input: 'text' is required"}), 400
+
+        user_text = data["text"]
+
+        # Analyse des émotions et stress
+        emotion_scores = predict_emotions(user_text)
+        stress_level = map_emotions_to_stress(emotion_scores)
+
+        # Génération de la réponse du chatbot
+        chatbot_response = get_chatbot_response(user_text)
+
+        # Retourner les résultats
+        return jsonify({
+            "feelings": json.dumps(emotion_scores),
+            "stressLevel": stress_level,
+            "chatbot_response": chatbot_response
+        })
+
+    except Exception as e:
+        print(f"Erreur dans /api/analyze : {e}")
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()

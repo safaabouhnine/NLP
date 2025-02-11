@@ -12,15 +12,9 @@ import Questionnaire2 from "./pages/Signup/Questionnaire2.jsx";
 //import Dashboard from './pages/Dashboard';
 import CalendarView from "./pages/CalendarView.jsx";
 import Recommendations from "./pages/Recommendations.jsx";
-import ConversationsPage from './components/ConversationsPage';
-import ConversationDetails from './components/ConversationDetails';
-import Chatbot from "./components/Chatbot";
+import Chatbot from "./pages/Chatbot.jsx";
 import './App.css';
-import ConversationHistory from "./components/ConversationHistory.jsx";
-// import ChatbotPage from "./pages/chatbot.jsx"; // Importer le CSS
-//import ConversationsMenu from "./components/ConversationsMenu";
 import {Sidebar} from "lucide-react";
-import ChatbotSidebar from "./components/ChatbotSidebar.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 
 const App = () => {
@@ -42,22 +36,8 @@ const App = () => {
                     <Route path="/calendrier/:userId" element={<CalendarView/>} />
                     <Route path="/recommendations" element={<Recommendations />} />
                     {/* Chatbot avec Sidebar */}
-                    <Route
-                        path="/chatbot"
-                        element={
-                            <>
-                                <Sidebar
-                                    conversations={[] /* Ajoutez vos conversations */}
-                                    onNewConversation={() => console.log('Nouvelle conversation')}
-                                />
-                                <Chatbot />
-                            </>
-                        }
-                    />
-                    <Route path="/conversations" element={<ConversationHistory />} />
-                    <Route path="/conversations" element={<ConversationsPage />} />
                     <Route path="/chatbot" element={<Chatbot />} />
-                    <Route path="/conversations/:id" element={<ConversationDetails />} />
+                    {/*<Route path="/conversations/:id" element={<ConversationDetails />} />*/}
                 </Route>
 
                 {/* Other Pages */}
