@@ -21,7 +21,7 @@ public class Psychologue {
     private String email;
 
     @ElementCollection
-    private List<String> disponibilite; // Liste des heures disponibles
+    private List<String> disponibilite;
 
     @Column(name = "PhoneNumber", nullable = false)
     private String phoneNumber;

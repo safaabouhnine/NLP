@@ -71,7 +71,7 @@ const Chatbot = () => {
                 <div className="messages">
                     {messages.map((msg, index) => (
                         <div key={index} className={`message ${msg.role}`}>
-                            {msg.content}
+                            <div dangerouslySetInnerHTML={{ __html: msg.content }} />
                         </div>
                     ))}
                 </div>

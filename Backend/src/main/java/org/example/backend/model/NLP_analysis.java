@@ -1,5 +1,6 @@
 package org.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 public class NLP_analysis{
 
     @Id
+    @JsonProperty("idNLP")  // Assure que le JSON retourne bien "idNLP"
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNLP;
 

@@ -15,6 +15,9 @@ public class Advice {
 
     @Column(length = 500)
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user; // Relation avec User
 
     // Getters et setters
     public Long getIdAd() {
@@ -39,5 +42,13 @@ public class Advice {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
