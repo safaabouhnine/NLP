@@ -31,7 +31,6 @@ Thumbs.db
 GPTQ-for-LLama/
 chainlit_app/
 data/
-services/
 tests/
 chainlit.yaml
 conversations.json

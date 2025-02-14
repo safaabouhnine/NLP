@@ -207,7 +207,7 @@ def get_conversations():
 def chat():
     try:
         print("Endpoint /chat appelé")
-        
+
         # Récupérer ou créer une conversation active
         active_conversation_id = request.cookies.get("active_conversation_id")
         start_time = datetime.now()
@@ -248,6 +248,34 @@ def chat():
     except Exception as e:
         print(f"Erreur dans l'endpoint /chat : {e}")
         return jsonify({"error": str(e)}), 500
+
+@app.route('/api/analyze', methods=['POST'])
+def analyze_text():
+    try:
+        data = request.get_json()
+        if not data or "text" not in data:
+            return jsonify({"error": "Invalid input: 'text' is required"}), 400
+
+        user_text = data["text"]
+
+        # Analyse des émotions et stress
+        emotion_scores = predict_emotions(user_text)
+        stress_level = map_emotions_to_stress(emotion_scores)
+
+        # Génération de la réponse du chatbot
+        chatbot_response = get_chatbot_response(user_text)
+
+        # Retourner les résultats
+        return jsonify({
+            "feelings": json.dumps(emotion_scores),
+            "stressLevel": stress_level,
+            "chatbot_response": chatbot_response
+        })
+
+    except Exception as e:
+        print(f"Erreur dans /api/analyze : {e}")
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()
