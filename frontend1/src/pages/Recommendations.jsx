@@ -10,8 +10,8 @@ const Recommendations = () => {
         axios
             .get("http://localhost:8081/api/recommendations/generate", {
                 params: {
-                    nlpAnalysisId: 5, // Exemple de paramètre
-                    userId: 1,        // Exemple de paramètre
+                    nlpAnalysisId: 20, // Exemple de paramètre
+                    userId: 7,        // Exemple de paramètre
                 },
             })
             .then((response) => {
