@@ -61,7 +61,7 @@ const Chatbot = () => {
                 <div className="chat-messages">
                     {messages.map((message) => (
                         <div key={message.id} className={`chat-message ${message.sender}`}>
-                            {message.content}
+                            <div dangerouslySetInnerHTML={{ __html: message.content }} />
                         </div>
                     ))}
                     {/* ✅ Invisible div to ensure scrolling to latest message */}
