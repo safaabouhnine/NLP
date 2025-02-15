@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //@Service
@@ -65,7 +66,9 @@ public class NLP_analysisService {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    public List<NLP_analysis> getAnalysesByUserId(Long userId) {
+        return nlpAnalysisRepository.findByStudentId(userId);
+    }
     public NLP_analysis analyzeText(String text, User student, Conversation conversation) {
         // URL de l'API Python
         String apiUrl = "http://localhost:5000/api/analyze";
@@ -100,4 +103,18 @@ public class NLP_analysisService {
             throw new RuntimeException("Erreur lors de l'appel à l'API Flask");
         }
     }
+    public NLP_analysis getLastInsertedNLPAnalysis() {
+        try {
+            return nlpAnalysisRepository.findLastInserted();
+        } catch (Exception e) {
+            // Log the exception and handle it appropriately
+            System.err.println("Error fetching last inserted NLP analysis: " + e.getMessage());
+            throw new RuntimeException("Failed to fetch last inserted NLP analysis", e);
+        }
+    }
+    public NLP_analysis findLatestByUserId(Long userId) {
+        return nlpAnalysisRepository.findTopByStudent_IdOrderByTimestampDesc(userId);
+    }
+
+
 }
