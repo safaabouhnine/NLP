@@ -16,17 +16,20 @@ public class RecommendationService {
     private final YouTubeService youTubeService;
     private final MeetingService meetingService;
     private final VideoRecRepository videoRecRepository;
+    private final PsychologueService psychologueService;
 
     public RecommendationService(NLP_analysisRepository nlpAnalysisRepository,
                                  AdviceService adviceService,
                                  YouTubeService youTubeService,
                                  MeetingService meetingService,
-                                 VideoRecRepository videoRecRepository) {
+                                 VideoRecRepository videoRecRepository,
+                                 PsychologueService psychologueService) {
         this.nlpAnalysisRepository = nlpAnalysisRepository;
         this.adviceService = adviceService;
         this.youTubeService = youTubeService;
         this.meetingService = meetingService;
         this.videoRecRepository = videoRecRepository;
+        this.psychologueService = psychologueService;
     }
 
     public Map<String, Object> generateRecommendation(Long nlpAnalysisId, Long userId, Long psychologueId) {
@@ -41,7 +44,7 @@ public class RecommendationService {
         switch (stressLevel.toLowerCase()) {
             case "low":
                 // Récupérer des conseils pour un stress faible
-                List<Advice> advices = adviceService.getAllAdvices();
+                List<Advice> advices = adviceService.getAdvicesByUserId(userId);
                 recommendation.put("advices", advices);
                 break;
 
@@ -52,24 +55,21 @@ public class RecommendationService {
                 break;
 
             case "high":
-                // Planifier une réunion pour un stress élevé
-                if (psychologueId != null) {
+                List<Psychologue> psychologues = psychologueService.getPsychologues(); // Assurez-vous que cette méthode existe
+                if (!psychologues.isEmpty()) {
+                    Psychologue selectedPsychologue = psychologues.get(0); // Exemple : sélection du premier psychologue
                     LocalDateTime startTime = LocalDateTime.now().plusDays(1);
+
                     User student = new User();
-                    try {
-                        // Injecter l'ID dans l'objet User via réflexion
-                        Field idField = User.class.getDeclaredField("id");
-                        idField.setAccessible(true);
-                        idField.set(student, userId);
-                    } catch (NoSuchFieldException | IllegalAccessException e) {
-                        throw new RuntimeException("Erreur lors de l'injection de l'ID dans User", e);
-                    }
-                    Meeting meeting = meetingService.scheduleMeeting(userId, psychologueId, startTime, student);
+                    student.setId(userId); // Utilisez le setter
+
+                    Meeting meeting = meetingService.scheduleMeeting(userId, selectedPsychologue.getIdP(), startTime, student);
                     recommendation.put("meeting", meeting);
                 } else {
-                    recommendation.put("error", "Psychologue ID requis pour un stress élevé");
+                    recommendation.put("error", "Aucun psychologue disponible");
                 }
                 break;
+
 
             default:
                 recommendation.put("error", "Niveau de stress non valide");

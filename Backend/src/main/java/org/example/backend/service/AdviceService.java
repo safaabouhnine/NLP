@@ -18,4 +18,8 @@ public class AdviceService {
     public List<Advice> getAllAdvices() {
         return adviceRepository.findAll();
     }
+
+    public List<Advice> getAdvicesByUserId(Long userId) {
+        return adviceRepository.findByUserId(userId);
+    }
 }

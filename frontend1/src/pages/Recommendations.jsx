@@ -5,7 +5,7 @@ import "../styles/Recommendations.css";
 const Recommendations = () => {
     const [userId, setUserId] = useState(null);
     const [recommendations, setRecommendations] = useState({});
-    const [nlpAnalysisId, setNlpAnalysisId] = useState(20);
+    const [nlpAnalysisId, setNlpAnalysisId] = useState(5);
 
     // 🔹 Fonction pour récupérer l'ID de l'utilisateur connecté
     const fetchUserId = async () => {
@@ -72,27 +72,35 @@ const Recommendations = () => {
         <div className="recommendations-container">
             <h2>Recommendations</h2>
             {recommendations.advices && recommendations.advices.length > 0 && (
-                <div className="advice-list">
-                    <h3>Advice</h3>
-                    {recommendations.advices.map((advice) => (
-                        <div key={advice.idAd} className="advice-card">
-                            <h4>{advice.title}</h4>
-                            <p>{advice.description}</p>
-                        </div>
-                    ))}
+                <div className="video-section">
+                    <h3 className="video-title">📌 Videos</h3>
+                    <div className="video-grid">
+                        {recommendations.videos.map((video) => (
+                            <div key={video.idVR} className="video-card">
+                                <h4>{video.title}</h4>
+                                <a href={video.videoLink} target="_blank" rel="noopener noreferrer"
+                                   className="video-link">
+                                    Watch Video
+                                </a>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
+            {/* 🔹 Section des Vidéos sous Recommendations */}
             {recommendations.videos && recommendations.videos.length > 0 && (
-                <div className="video-list">
-                    <h3>Videos</h3>
-                    {recommendations.videos.map((video) => (
-                        <div key={video.idVR} className="video-card">
-                            <h4>{video.title}</h4>
-                            <a href={video.videoLink} target="_blank" rel="noopener noreferrer">
-                                Watch Video
-                            </a>
-                        </div>
-                    ))}
+                <div className="video-section">
+                    <h3 className="video-title">Videos</h3>
+                    <div className="video-grid">
+                        {recommendations.videos.map((video) => (
+                            <div key={video.idVR} className="video-card">
+                                <h4>{video.title}</h4>
+                                <a href={video.videoLink} target="_blank" rel="noopener noreferrer" className="video-link">
+                                    Watch Video
+                                </a>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
             {recommendations.meeting && (

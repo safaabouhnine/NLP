@@ -53,13 +53,13 @@ public class NLP_analysisController {
 
 
 
-    @GetMapping("/latest/{userId}")
-    public ResponseEntity<NLP_analysis> getLatestNLPAnalysis(@PathVariable Long userId) {
-        NLP_analysis latestAnalysis = nlpAnalysisService.findLatestByUserId(userId);
-        if (latestAnalysis != null) {
-            return ResponseEntity.ok(latestAnalysis);
-        } else {
-            return ResponseEntity.notFound().build();
+        @GetMapping("/latest/{userId}")
+        public ResponseEntity<NLP_analysis> getLatestNLPAnalysis(@PathVariable Long userId) {
+            NLP_analysis latestAnalysis = nlpAnalysisService.findLatestByUserId(userId);
+            if (latestAnalysis != null) {
+                return ResponseEntity.ok(latestAnalysis);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         }
-    }
-}
+        }

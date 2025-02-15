@@ -27,9 +27,12 @@ const CalendarView = () => {
                         url: event.link,
                     }));
                     setEvents(formattedEvents); // Mise à jour du state avec les événements formatés
+                    setLoading(false);
                 })
                 .catch((error) => {
                     console.error("Erreur lors de la récupération des événements :", error);
+                    setEvents([]);
+                    setLoading(false);
                 });
         }
     }, [userId]); // L'effet se réexécute lorsque l'ID utilisateur change

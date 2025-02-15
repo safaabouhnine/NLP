@@ -108,7 +108,9 @@ public class User {
     public User() {
         // Constructeur sans argument (obligatoire pour JPA)
     }
-
+    public User(Long id) {
+        this.id = id;
+    }
     public User(String firstName, String lastName, String email, String phoneNumber, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -135,5 +137,60 @@ public class User {
 
     public void setQuestionnaireCompleted(Boolean questionnaireCompleted) {
         this.questionnaireCompleted = questionnaireCompleted;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setFirstName(@NotNull(message = "First name is required") @Size(min = 2, message = "First name must have at least 2 characters") String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(@NotNull(message = "Last name is required") @Size(min = 2, message = "Last name must have at least 2 characters") String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPhoneNumber(@NotNull(message = "Phone number is required") @Pattern(
+            regexp = "^(05|06|07)[0-9]{8}$",
+            message = "Phone number must start with 05, 06, or 07 and have exactly 10 digits"
+    ) String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public @Past(message = "Birth date must be in the past") LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(@Past(message = "Birth date must be in the past") LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setEmail(@Email(message = "Invalid email format") @NotNull(message = "Email is required") String email) {
+        this.email = email;
+    }
+
+    public @Pattern(regexp = "^(Male|Female)$", message = "Gender must be Male or Female") String getGender() {
+        return gender;
+    }
+
+    public void setGender(@Pattern(regexp = "^(Male|Female)$", message = "Gender must be Male or Female") String gender) {
+        this.gender = gender;
+    }
+
+    public @NotNull(message = "Education level is required") @Size(min = 2, max = 50, message = "Education level must be between 2 and 50 characters") String getEducationLevel() {
+        return educationLevel;
+    }
+
+    public void setEducationLevel(@NotNull(message = "Education level is required") @Size(min = 2, max = 50, message = "Education level must be between 2 and 50 characters") String educationLevel) {
+        this.educationLevel = educationLevel;
+    }
+
+    public @NotNull(message = "University is required") @Size(min = 2, max = 100, message = "University name must be between 2 and 100 characters") String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(@NotNull(message = "University is required") @Size(min = 2, max = 100, message = "University name must be between 2 and 100 characters") String university) {
+        this.university = university;
     }
 }

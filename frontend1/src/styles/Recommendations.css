@@ -177,3 +177,354 @@ h3::before {
     color: #e67e22; /* Accent orange subtil */
     margin-right: 8px;
 }
+/* 🌟 Importation d'une police élégante */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.recommendations-container {
+    max-width: 900px;
+    margin: auto;
+    background: #e3f2f9; /* 🩵 Bleu doux (comme la sidebar) */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 💡 Titre principal */
+.recommendations-container h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 🎯 Boîte de recommandation */
+.meeting-section {
+    background: #fdfdfd; /* Blanc cassé pour trancher avec le bleu */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #a2c9db; /* Bordure assortie à la sidebar */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Effet lorsqu'on passe la souris sur la boîte */
+.meeting-section:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 📌 Sous-titre */
+.meeting-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* 📝 Style des informations */
+.meeting-section p {
+    font-size: 16px;
+    color: #34495e;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* 🎨 Bouton amélioré (utilisation du bleu de la sidebar) */
+.meeting-section a {
+    display: inline-block;
+    padding: 12px 20px;
+    margin-top: 10px;
+    background:  #1abc9c; /* 🩵 Bleu de la sidebar */
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 6px rgba(95, 168, 211, 0.3);
+}
+
+/* Effet hover du bouton */
+.meeting-section a:hover {
+    background: #4e90bb; /* Bleu un peu plus foncé */
+    box-shadow: 0 3px 8px rgba(95, 168, 211, 0.4);
+}
+
+/* 🌟 Icône avant le titre */
+.meeting-section h3::before {
+    content: "📌 ";
+    font-size: 20px;
+    margin-right: 5px;
+}
+/* 🌟 Bouton Join Meeting plus compact et esthétique */
+.meeting-section a {
+    display: inline-block;
+    padding: 8px 16px;  /* 📌 Réduit la taille du bouton */
+    margin-top: 8px;
+    background:  #1abc9c; /* 🩵 Bleu de la sidebar */
+    color: #ffffff;
+    font-size: 14px; /* 📌 Réduction de la police */
+    font-weight: 500;
+    border-radius: 6px; /* 📌 Coins légèrement arrondis */
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(95, 168, 211, 0.3);
+}
+
+/* Effet hover du bouton */
+.meeting-section a:hover {
+    background: #4e90bb; /* Bleu un peu plus foncé */
+    box-shadow: 0 3px 6px rgba(95, 168, 211, 0.4);
+    transform: translateY(-2px); /* 📌 Effet léger au survol */
+}
+/* 🌟 Ajustement de l'espacement entre "Meeting Link" et le bouton */
+.meeting-section p {
+    margin-bottom: 12px; /* 📌 Ajoute un peu d'espace sous le texte "Meeting Link" */
+}
+
+.meeting-section a {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px; /* 📌 Ajoute un espace entre le texte et le bouton */
+    background: #5fa8d3;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(95, 168, 211, 0.3);
+}
+
+/* Effet hover */
+.meeting-section a:hover {
+    background: #4e90bb;
+    box-shadow: 0 3px 6px rgba(95, 168, 211, 0.4);
+    transform: translateY(-2px);
+}
+.meeting-section a {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px; /* 📌 Ajoute un espace entre le texte et le bouton */
+    background: #5fa8d3; /* 🌿 Nouvelle couleur */
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(26, 188, 156, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+
+.video-section {
+    display: block;
+    width: 100%;
+    margin-top: 30px; /* Ajoute un peu d’espace entre Recommendations et Videos */
+}
+
+.video-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.video-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.video-section {
+    display: flex;
+    flex-direction: column; /* Pour que "Videos" soit bien en colonne */
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.video-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Organisation des vidéos en ligne avec bonne répartition */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste les colonnes automatiquement */
+    gap: 20px;
+    justify-content: center;
+    width: 80%;
+}
+
+/* Style des cartes vidéos */
+.video-card {
+    background: #eaf6f6;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+/* Style du lien */
+.video-link {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #1abc9c;
+    text-decoration: none;
+}
+
+.video-link:hover {
+    text-decoration: underline;
+}
+.recommendations-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Style du titre "RECOMMENDATIONS" */
+.recommendations-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Section "Videos" bien centrée */
+.video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+/* Style du titre "Videos" */
+.video-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Organisation des vidéos en grille bien espacée */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    width: 90%;
+}
+
+/* Style des cartes vidéos */
+.video-card {
+    background: #eaf6f6;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    width: 250px; /* Taille uniforme des vidéos */
+}
+
+/* Effet hover */
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+/* Style du lien "Watch Video" */
+.video-link {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #1abc9c;
+    text-decoration: none;
+}
+
+.video-link:hover {
+    text-decoration: underline;
+}
+.recommendations-container {
+    display: flex;
+    flex-direction: column; /* Pour que "Videos" soit bien en colonne */
+    align-items: center;
+    width: 100%;
+}
+
+/* Style du titre "RECOMMENDATIONS" */
+.recommendations-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Section "Videos" bien centrée */
+.video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+/* Style du titre "Videos" */
+.video-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Organisation des vidéos en grille bien espacée */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste automatiquement */
+    gap: 20px;
+    justify-content: center;
+    width: 90%;
+}
+
+/* Style des cartes vidéos */
+.video-card {
+    background: #eaf6f6;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    width: 250px; /* Taille uniforme des vidéos */
+}
+
+/* Effet hover */
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+/* Style du lien "Watch Video" */
+.video-link {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #1abc9c;
+    text-decoration: none;
+}
+
+.video-link:hover {
+    text-decoration: underline;
+}

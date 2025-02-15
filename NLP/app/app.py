@@ -16,7 +16,7 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 DB_HOST = "localhost"
 DB_NAME = "Calmify"
 DB_USER = "postgres"
-DB_PASSWORD = "AZERTY"
+DB_PASSWORD = "ibtissamat2002"
 
 # Ajout du répertoire des services au PATH
 service_dir = os.path.join(os.path.dirname(__file__), "services")
@@ -224,7 +224,6 @@ def chat():
         stress_level = map_emotions_to_stress(emotion_scores)
 
         print("Génération de la réponse du chatbot...")
-
         chatbot_response = get_chatbot_response(user_input)
 
         if not active_conversation_id:
