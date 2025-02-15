@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import axios from "../Utils/axios-instance";
 import "../styles/Recommendations.css";
@@ -6,7 +5,7 @@ import "../styles/Recommendations.css";
 const Recommendations = () => {
     const [userId, setUserId] = useState(null);
     const [recommendations, setRecommendations] = useState({});
-    const [nlpAnalysisId, setNlpAnalysisId] = useState(null);
+    const [nlpAnalysisId, setNlpAnalysisId] = useState(20);
 
     // 🔹 Fonction pour récupérer l'ID de l'utilisateur connecté
     const fetchUserId = async () => {
