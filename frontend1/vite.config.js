@@ -11,4 +11,7 @@ export default defineConfig({
   build: {
     outDir: 'build', // Dossier de sortie pour la build
   },
+  define: {
+    "process.env": {}, // This prevents errors when `process.env` is used
+  },
 })

@@ -16,15 +16,19 @@ import Chatbot from "./pages/Chatbot.jsx";
 import './App.css';
 import {Sidebar} from "lucide-react";
 import Dashboard from "./pages/Dashboard.jsx";
+import LandingPage from "./pages/index.tsx"
 
 const App = () => {
     const [questionnaireData, setQuestionnaireData] = useState({});
     return (
         <Router>
             <Routes>
+                <Route path="/" element={<LandingPage />} />
+
                 {/* Auth Pages (No Sidebar) */}
                 <Route element={<AuthLayout />}>
-                    <Route path="/" element={<Login />} />
+
+                    <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/forget-password" element={<ForgetPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
