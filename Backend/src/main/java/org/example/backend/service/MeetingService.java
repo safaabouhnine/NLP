@@ -5,6 +5,7 @@ import org.example.backend.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,9 @@ public class MeetingService {
 
     private String generateGoogleMeetLink() {
         return "https://meet.google.com/random-link"; // Remplacez avec une vraie API si nécessaire
+    }
+    public List<Psychologue> getAvailablePsychologists() {
+        return psychologueRepository.findAll(); // Ajoutez une condition pour la disponibilité si nécessaire
     }
 
     public Meeting scheduleMeeting(Long studentId, Long psychologueId, LocalDateTime dateTime, User student) {

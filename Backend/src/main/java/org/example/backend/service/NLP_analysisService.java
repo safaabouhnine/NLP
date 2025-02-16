@@ -1,19 +1,23 @@
 package org.example.backend.service;
 
 
-import org.example.backend.model.Conversation;
-import org.example.backend.model.NLP_analysis;
-import org.example.backend.model.User;
-import org.example.backend.repository.NLP_analysisRepository;
+import jakarta.transaction.Transactional;
+import org.example.backend.model.*;
+import org.example.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 
 //@Service
 //public class NLP_analysisService {
@@ -63,32 +67,66 @@ public class NLP_analysisService {
 
     @Autowired
     private NLP_analysisRepository nlpAnalysisRepository;
+    @Autowired
+    private MeetingService meetingService; // ✅ Injection du service de gestion des meetings
+    @Autowired
+    private RecommendationService recommendationService;
+    @Autowired
+    private ConversationRepository conversationRepository;
+    @Autowired
+    private VideoRecRepository videoRecRepository; // ✅ Injection du repository pour les vidéos
 
+    @Autowired
+    private AdviceRepository adviceRepository; // ✅ Injection du repository pour les conseils
+
+    @Autowired
+    private RecommendationRepository recommendationRepository; // ✅ Injection du repository pour les recommandations
     @Autowired
     private RestTemplate restTemplate;
     public List<NLP_analysis> getAnalysesByUserId(Long userId) {
         return nlpAnalysisRepository.findByStudentId(userId);
     }
+    @Transactional
     public NLP_analysis analyzeText(String text, User student, Conversation conversation) {
-        // URL de l'API Python
-        String apiUrl = "http://localhost:5000/api/analyze";
+        try {
+            System.out.println("🔹 Début de l'analyse NLP pour l'utilisateur: " + student.getId());
+            System.out.println("📩 Texte reçu: " + text);
 
-        // Préparer la requête
-        Map<String, String> request = new HashMap<>();
-        request.put("text", text);
+            // 📌 Récupérer la dernière conversation
+            Optional<Conversation> lastConversation = conversationRepository.findLastConversation();
+            if (lastConversation.isPresent()) {
+                conversation = lastConversation.get();
+                System.out.println("✅ Dernière conversation récupérée avec ID: " + conversation.getIdC());
+            } else {
+                System.out.println("⚠️ Aucune conversation trouvée, création d'une nouvelle...");
+                conversation = new Conversation();
+                conversation.setStartTime(LocalDateTime.now());
+                conversation.setStatus("active");
+                conversation = conversationRepository.save(conversation);
+                System.out.println("✅ Nouvelle conversation créée avec ID: " + conversation.getIdC());
+            }
 
-        // Envoyer la requête POST vers Flask
-        ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, request, Map.class);
+            // 📌 Appel à l'API Flask
+            String apiUrl = "http://localhost:5000/api/chat";
+            Map<String, String> request = new HashMap<>();
+            request.put("text", text);
 
-        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, request, Map.class);
+            if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
+                System.out.println("❌ Erreur : réponse de Flask non valide !");
+                return null;
+            }
+
             Map<String, Object> responseBody = response.getBody();
-
-            // Récupération des résultats de Flask
             String feelings = (String) responseBody.get("feelings");
-            String stressLevel = (String) responseBody.get("stressLevel");
+            String stressLevel = (String) responseBody.get("stress_level");
             String chatbotMessage = (String) responseBody.get("chatbot_response");
 
-            // Création de l'objet NLP_analysis
+            System.out.println("✅ Feelings: " + feelings);
+            System.out.println("✅ Stress Level: " + stressLevel);
+            System.out.println("✅ Chatbot Response: " + chatbotMessage);
+
+            // 📌 Création et stockage de l'analyse NLP
             NLP_analysis analysis = new NLP_analysis();
             analysis.setFeelings(feelings);
             analysis.setStressLevel(stressLevel);
@@ -97,12 +135,42 @@ public class NLP_analysisService {
             analysis.setStudent(student);
             analysis.setConversation(conversation);
 
-            // Sauvegarde en base de données
-            return nlpAnalysisRepository.save(analysis);
-        } else {
-            throw new RuntimeException("Erreur lors de l'appel à l'API Flask");
+            NLP_analysis savedAnalysis = nlpAnalysisRepository.save(analysis);
+            nlpAnalysisRepository.flush();
+            System.out.println("✅ NLP Analysis enregistrée avec ID: " + savedAnalysis.getId());
+            recommendationService.saveRecommendation(student.getId(), stressLevel);
+            return savedAnalysis;
+
+        } catch (Exception e) {
+            System.out.println("❌ Exception attrapée: " + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
+    @GetMapping("/generate")
+    public ResponseEntity<Map<String, Object>> generateRecommendations(
+            @RequestParam Long nlpAnalysisId,
+            @RequestParam Long userId,
+            @RequestParam(required = false) Long psychologueId) {
+        try {
+            System.out.println("🔹 Appel de /generate avec NLP Analysis ID=" + nlpAnalysisId + " et userId=" + userId);
+
+            NLP_analysis nlpAnalysis = nlpAnalysisRepository.findById(nlpAnalysisId)
+                    .orElseThrow(() -> new RuntimeException("❌ NLP Analysis non trouvé"));
+
+            System.out.println("✅ Analyse NLP récupérée: " + nlpAnalysis.getId() + " - Stress Level: " + nlpAnalysis.getStressLevel());
+
+            Map<String, Object> recommendations = recommendationService.generateRecommendation(nlpAnalysisId, userId, psychologueId);
+            System.out.println("✅ Recommandations générées: " + recommendations);
+
+            return ResponseEntity.ok(recommendations);
+        } catch (Exception e) {
+            System.out.println("❌ Erreur: " + e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+
     public NLP_analysis getLastInsertedNLPAnalysis() {
         try {
             return nlpAnalysisRepository.findLastInserted();
@@ -114,6 +182,7 @@ public class NLP_analysisService {
     }
     public NLP_analysis findLatestByUserId(Long userId) {
         return nlpAnalysisRepository.findTopByStudent_IdOrderByTimestampDesc(userId);
+
     }
 
 

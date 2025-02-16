@@ -8,7 +8,10 @@ import psycopg2
 import json
 from flask_cors import CORS
 import requests  # Added to make API calls
-
+# 🔹 Forcer l'encodage UTF-8
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
@@ -16,7 +19,7 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 DB_HOST = "localhost"
 DB_NAME = "Calmify"
 DB_USER = "postgres"
-DB_PASSWORD = "ibtissamat2002"
+DB_PASSWORD = "123456"
 
 # Ajout du répertoire des services au PATH
 service_dir = os.path.join(os.path.dirname(__file__), "services")
@@ -38,7 +41,7 @@ except ImportError as e:
 
 # Configuration du modèle Flan-T5
 API_KEY = "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"  # Replace with your actual API key
-MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.3"
+MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.3"  
 API_URL = f"https://api-inference.huggingface.co/models/{MODEL_NAME}"
 print("Using Hugging Face API for the chatbot model.")
 
@@ -224,6 +227,7 @@ def chat():
         stress_level = map_emotions_to_stress(emotion_scores)
 
         print("Génération de la réponse du chatbot...")
+    
         chatbot_response = get_chatbot_response(user_input)
 
         if not active_conversation_id:
@@ -248,14 +252,16 @@ def chat():
         print(f"Erreur dans l'endpoint /chat : {e}")
         return jsonify({"error": str(e)}), 500
 
-@app.route('/api/analyze', methods=['POST'])
+@app.route('/api/nlp/analyze', methods=['POST'])
 def analyze_text():
     try:
-        data = request.get_json()
-        if not data or "text" not in data:
-            return jsonify({"error": "Invalid input: 'text' is required"}), 400
+        data = request.get_data().decode('utf-8')
+        json_data = json.loads(data)
 
-        user_text = data["text"]
+        if "text" not in json_data:
+            return jsonify({"error": "Invalid input: 'text' is required"}), 400
+        user_text = json_data["text"]
+        print("🔹 Texte reçu :", user_text)
 
         # Analyse des émotions et stress
         emotion_scores = predict_emotions(user_text)
