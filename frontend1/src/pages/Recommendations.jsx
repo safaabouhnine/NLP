@@ -5,7 +5,7 @@ import "../styles/Recommendations.css";
 const Recommendations = () => {
     const [userId, setUserId] = useState(null);
     const [recommendations, setRecommendations] = useState({});
-    const [nlpAnalysisId, setNlpAnalysisId] = useState(5);
+    const [nlpAnalysisId, setNlpAnalysisId] = useState(null);
 
     // 🔹 Fonction pour récupérer l'ID de l'utilisateur connecté
     const fetchUserId = async () => {

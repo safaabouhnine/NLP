@@ -528,3 +528,144 @@ h3::before {
 .video-link:hover {
     text-decoration: underline;
 }
+/* 🌟 Importation d'une police élégante */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.recommendations-container {
+    max-width: 900px;
+    margin: auto;
+    background: #e3f2f9; /* 🩵 Bleu doux (comme la sidebar) */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 💡 Titre principal */
+.recommendations-container h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 🎯 Boîte de recommandation */
+.meeting-section {
+    background: #fdfdfd; /* Blanc cassé pour trancher avec le bleu */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #a2c9db; /* Bordure assortie à la sidebar */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Effet lorsqu'on passe la souris sur la boîte */
+.meeting-section:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 📌 Sous-titre */
+.meeting-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* 📝 Style des informations */
+.meeting-section p {
+    font-size: 16px;
+    color: #34495e;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* 🎨 Bouton amélioré (utilisation du bleu de la sidebar) */
+.meeting-section a {
+    display: inline-block;
+    padding: 12px 20px;
+    margin-top: 10px;
+    background: #5fa8d3; /* 🩵 Bleu de la sidebar */
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 6px rgba(95, 168, 211, 0.3);
+}
+
+/* Effet hover du bouton */
+.meeting-section a:hover {
+    background: #4e90bb; /* Bleu un peu plus foncé */
+    box-shadow: 0 3px 8px rgba(95, 168, 211, 0.4);
+}
+
+/* 🌟 Icône avant le titre */
+.meeting-section h3::before {
+    content: "📌 ";
+    font-size: 20px;
+    margin-right: 5px;
+}
+.meeting-section {
+    background: #fdfdfd; /* Blanc cassé pour trancher avec le bleu */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #a2c9db; /* Bordure assortie à la sidebar */
+    transition: transform 0.3s ease-in-out;
+    width: 90%; /* Ajuste la largeur pour être plus longue */
+    max-width: 800px; /* Définit une limite max */
+    text-align: center;
+}
+
+.meeting-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: left; /* Aligner le texte */
+}
+
+.meeting-section p {
+    font-size: 16px;
+    color: #34495e;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.meeting-container {
+    display: flex;
+    justify-content: center;
+}
+.meeting-section {
+    background: #fdfdfd; /* Blanc cassé */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #a2c9db; /* Bordure assortie */
+    transition: transform 0.3s ease-in-out;
+    width: 90%; /* Ajuste la largeur */
+    max-width: 800px; /* Largeur maximale */
+
+    /* 🔹 Centrer complètement le contenu */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centre verticalement */
+    text-align: center;
+    height: 250px; /* Ajuste la hauteur pour bien centrer */
+}
+
+.meeting-section p {
+    font-size: 16px;
+    color: #34495e;
+    font-weight: 400;
+    line-height: 1.6;
+    width: 100%;
+    text-align: center; /* Centre le texte */
+}
