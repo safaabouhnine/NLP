@@ -8,7 +8,10 @@ import psycopg2
 import json
 from flask_cors import CORS
 import requests  # Added to make API calls
-
+# 🔹 Forcer l'encodage UTF-8
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
@@ -249,14 +252,16 @@ def chat():
         print(f"Erreur dans l'endpoint /chat : {e}")
         return jsonify({"error": str(e)}), 500
 
-@app.route('/api/analyze', methods=['POST'])
+@app.route('/api/nlp/analyze', methods=['POST'])
 def analyze_text():
     try:
-        data = request.get_json()
-        if not data or "text" not in data:
-            return jsonify({"error": "Invalid input: 'text' is required"}), 400
+        data = request.get_data().decode('utf-8')
+        json_data = json.loads(data)
 
-        user_text = data["text"]
+        if "text" not in json_data:
+            return jsonify({"error": "Invalid input: 'text' is required"}), 400
+        user_text = json_data["text"]
+        print("🔹 Texte reçu :", user_text)
 
         # Analyse des émotions et stress
         emotion_scores = predict_emotions(user_text)

@@ -16,7 +16,7 @@ public interface NLP_analysisRepository extends JpaRepository<NLP_analysis, Long
     @Query("SELECT n FROM NLP_analysis n WHERE n.student.id = :studentId ORDER BY n.timestamp DESC")
     Optional<NLP_analysis> findLastByStudentId(@Param("studentId") Long studentId);
 
-    @Query("SELECT n FROM NLP_analysis n ORDER BY n.idNLP DESC LIMIT 1")
+    @Query("SELECT n FROM NLP_analysis n ORDER BY n.id DESC LIMIT 1")
     NLP_analysis findLastInserted();
 
     NLP_analysis findTopByStudent_IdOrderByTimestampDesc(Long userId);

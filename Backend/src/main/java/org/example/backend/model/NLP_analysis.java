@@ -1,30 +1,43 @@
 package org.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 
 import java.time.LocalDateTime;
-
 @Entity
-public class NLP_analysis{
+@Table(name = "nlp_analysis")
+@JsonIgnoreProperties({"conversation"})
+public class NLP_analysis {
 
     @Id
-    @JsonProperty("idNLP")  // Assure que le JSON retourne bien "idNLP"
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idNLP;
+    private Long id;
 
     @ManyToOne
     private User student;
-
-    private Long id;
 
     private String feelings;
     private String stressLevel;
     private LocalDateTime timestamp;
 
-    @Column(columnDefinition = "TEXT") // Permet de stocker de longues réponses
+    @Column(columnDefinition = "TEXT")
     private String chatbotResponse;
+
+    @ManyToOne
+    @JsonIgnore
+    private Conversation conversation;
+
+    // Getters et Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long idNLP) {
+        this.id = idNLP;
+    }
 
     public String getFeelings() {
         return feelings;
@@ -32,14 +45,6 @@ public class NLP_analysis{
 
     public void setFeelings(String feelings) {
         this.feelings = feelings;
-    }
-
-    public Long getIdNLP() {
-        return idNLP;
-    }
-
-    public void setIdNLP(Long idNLP) {
-        this.idNLP = idNLP;
     }
 
     public User getStudent() {
@@ -66,8 +71,6 @@ public class NLP_analysis{
         this.timestamp = timestamp;
     }
 
-
-
     public Conversation getConversation() {
         return conversation;
     }
@@ -76,16 +79,6 @@ public class NLP_analysis{
         this.conversation = conversation;
     }
 
-    @ManyToOne
-    private Conversation conversation;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
     public String getChatbotResponse() {
         return chatbotResponse;
     }
@@ -93,6 +86,4 @@ public class NLP_analysis{
     public void setChatbotResponse(String chatbotResponse) {
         this.chatbotResponse = chatbotResponse;
     }
-
-    // Getters et Setters
 }

@@ -38,7 +38,7 @@ const Recommendations = () => {
         if (userId) {
             axios
                 .get(`http://localhost:8081/api/nlp/latest/${userId}`) // Ajout de userId dans l'URL
-        .then((response) => {
+                .then((response) => {
                 console.log("✅ NLP Analysis ID reçu :", response.data.id);
                 setNlpAnalysisId(response.data.id);
             })
