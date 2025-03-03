@@ -2,6 +2,8 @@ package org.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "advices")
 public class Advice {
@@ -15,6 +17,10 @@ public class Advice {
 
     @Column(length = 500)
     private String description;
+
+    @Column(name = "created_date", nullable = false)
+    private LocalDate createdDate; // Ajout du champ createdDate
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // Relation avec User
@@ -42,6 +48,13 @@ public class Advice {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
     public User getUser() {

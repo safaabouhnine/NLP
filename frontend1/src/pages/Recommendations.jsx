@@ -6,6 +6,7 @@ const Recommendations = () => {
     const [userId, setUserId] = useState(null);
     const [recommendations, setRecommendations] = useState({});
     const [nlpAnalysisId, setNlpAnalysisId] = useState({});
+    const [events,setEvents] = useState([]); // Ajoute l'état pour les événements
 
     // 🔹 Fonction pour récupérer l'ID de l'utilisateur connecté
     const fetchUserId = async () => {
@@ -67,7 +68,20 @@ const Recommendations = () => {
                 });
         }
     }, [nlpAnalysisId, userId]);
-
+// 🔹 Récupération des recommandations avec événements (affichage calendrier)
+    useEffect(() => {
+        if (userId) {
+            axios
+                .get(`http://localhost:8081/api/recommendations/user/${userId}/with-events`)
+                .then((response) => {
+                    console.log("✅ Recommandations avec événements reçues :", response.data);
+                    setEvents(response.data); // Nouvel état pour le calendrier
+                })
+                .catch((error) => {
+                    console.error("❌ Erreur lors de la récupération des recommandations avec événements :", error);
+                });
+        }
+    }, [userId]);
     return (
         <div className="recommendations-container">
             <h2>Recommendations</h2>

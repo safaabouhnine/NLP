@@ -2,6 +2,9 @@ package org.example.backend.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+
 
 @Entity
 @Table(name = "recommendations")
@@ -26,6 +29,11 @@ public class Recommendation {
 
     @Column(name = "Date_Rec", nullable = false)
     private LocalDate dateRec = LocalDate.now();
+
+    @OneToOne
+    @JoinColumn(name = "calendar_event_id") // Colonne de liaison dans la table 'recommendations'
+    private CalendarEvent calendarEvent;
+
 
     // Getters et setters
     public Long getIdR() {
@@ -75,4 +83,13 @@ public class Recommendation {
     public void setDateRec(LocalDate dateRec) {
         this.dateRec = dateRec;
     }
+
+    public CalendarEvent getCalendarEvent() {
+        return calendarEvent;
+    }
+
+    public void setCalendarEvent(CalendarEvent calendarEvent) {
+        this.calendarEvent = calendarEvent;
+    }
+
 }

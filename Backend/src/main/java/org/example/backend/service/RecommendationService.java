@@ -19,6 +19,8 @@ public class RecommendationService {
     private final MeetingService meetingService;
     private final VideoRecRepository videoRecRepository;
     private final PsychologueService psychologueService;
+    private final CalendarEventService calendarEventService;
+    private final CalendarEventRepository calendarEventRepository;
     @Autowired
     private RecommendationRepository recommendationRepository;
     public RecommendationService(NLP_analysisRepository nlpAnalysisRepository,
@@ -26,13 +28,17 @@ public class RecommendationService {
                                  YouTubeService youTubeService,
                                  MeetingService meetingService,
                                  VideoRecRepository videoRecRepository,
-                                 PsychologueService psychologueService) {
+                                 PsychologueService psychologueService,
+                                 CalendarEventService calendarEventService,
+                                 CalendarEventRepository calendarEventRepository) {
         this.nlpAnalysisRepository = nlpAnalysisRepository;
         this.adviceService = adviceService;
         this.youTubeService = youTubeService;
         this.meetingService = meetingService;
         this.videoRecRepository = videoRecRepository;
         this.psychologueService = psychologueService;
+        this.calendarEventService = calendarEventService;
+        this.calendarEventRepository = calendarEventRepository;
     }
 
     public void saveRecommendation(Long userId, String stressLevel) {
@@ -76,6 +82,20 @@ public class RecommendationService {
         recommendation.setViewed(false); // Par défaut, elle n'a pas été vue
         recommendation.setDateRec(LocalDate.now()); // Date actuelle
 
+        // Création de l'événement lié
+        CalendarEvent event = new CalendarEvent();
+        event.setTitle("Recommandation: " + typeRec);
+        event.setDescription(description);
+        event.setStartTime(LocalDateTime.now().plusDays(1));
+        event.setEndTime(LocalDateTime.now().plusDays(1).plusHours(1));
+        event.setEventType(EventType.valueOf(typeRec.toUpperCase()));
+        event.setUser(lastAnalysis.getStudent());
+
+        CalendarEvent savedEvent = calendarEventService.addEvent(event);
+
+        // Liaison entre la recommandation et l'événement
+        recommendation.setCalendarEvent(savedEvent);
+
         try {
             recommendationRepository.save(recommendation);
             recommendationRepository.flush();
@@ -99,6 +119,7 @@ public class RecommendationService {
 
         switch (stressLevel.toLowerCase()) {
             case "low":
+
                 // Récupérer des conseils pour un stress faible
                 List<Advice> advices = adviceService.getAdvicesByUserId(userId);
                 recommendation.put("advices", advices);
@@ -108,6 +129,38 @@ public class RecommendationService {
                 // Générer et sauvegarder des vidéos dynamiques pour un stress moyen
                 List<VideoRec> generatedVideos = youTubeService.saveVideosForStress("relaxation", 5); // Ex. 5 vidéos
                 recommendation.put("videos", generatedVideos);
+
+                // 🔔 Répartir les vidéos sur plusieurs jours (ex: une vidéo par jour)
+                LocalDateTime startDate = LocalDateTime.now().plusDays(1); // Commence demain
+
+                // 🔔 Enregistrer chaque vidéo comme une recommandation et créer des événements
+                for (int i = 0; i < generatedVideos.size(); i++) {
+                    VideoRec video = generatedVideos.get(i);
+
+                    // Crée la recommandation
+                    Recommendation recommendationVideo = new Recommendation();
+                    recommendationVideo.setUser(nlpAnalysis.getStudent());
+                    recommendationVideo.setType("Video");
+                    recommendationVideo.setDescription("Regardez cette vidéo de relaxation.");
+                    recommendationVideo.setViewed(false);
+                    recommendationVideo.setDateRec(LocalDate.now().plusDays(i)); // Date différente pour chaque vidéo
+                    recommendationRepository.save(recommendationVideo);
+
+                    // 🔹 Crée l'événement pour cette vidéo avec une date décalée
+                    CalendarEvent event = new CalendarEvent();
+                    event.setTitle("Vidéo recommandée : " + video.getTitle());
+                    event.setDescription("Regardez la vidéo : " + video.getTitle());
+                    event.setStartTime(startDate.plusDays(i).withHour(17).withMinute(0)); // Chaque vidéo un jour après l'autre à 17h
+                    event.setEndTime(startDate.plusDays(i).withHour(17).withMinute(30));  // Durée de 30 minutes
+                    event.setEventType(EventType.VIDEO_RECOMMENDATION);
+                    event.setUser(nlpAnalysis.getStudent());
+                    event.setLink(video.getVideoLink());
+                    calendarEventRepository.save(event);
+
+                    // Lier l'événement à la recommandation
+                    recommendationVideo.setCalendarEvent(event);
+                    recommendationRepository.save(recommendationVideo); // Mise à jour avec l'événement lié
+                }
                 break;
 
             case "high":
@@ -133,4 +186,10 @@ public class RecommendationService {
 
         return recommendation;
     }
+
+    public List<Recommendation> getRecommendationsByUser(Long userId) {
+        return recommendationRepository.findByUser_Id(userId);
+    }
+
+
 }

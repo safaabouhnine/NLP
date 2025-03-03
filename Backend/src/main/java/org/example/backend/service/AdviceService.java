@@ -20,6 +20,11 @@ public class AdviceService {
     }
 
     public List<Advice> getAdvicesByUserId(Long userId) {
-        return adviceRepository.findByUserId(userId);
+        return adviceRepository.findByUser_Id(userId);
+    }
+
+    // 🔔 Méthode pour sauvegarder un conseil en base de données
+    public Advice saveAdvice(Advice advice) {
+        return adviceRepository.save(advice);
     }
 }

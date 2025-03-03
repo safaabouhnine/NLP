@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface AdviceRepository extends JpaRepository<Advice, Long> {
     @Query(value = "SELECT a FROM Advice a WHERE a.user.id = :userId")
-    List<Advice> findByUserId(@Param("userId") Long userId);
+    List<Advice> findByUser_Id(@Param("userId") Long userId);
 
 }
